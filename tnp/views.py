@@ -16,11 +16,11 @@ def training(request):
 
 def placements(request):
     place_det = Placements.objects.all()
-    stu_details = Studentdetails.objects.all()
-    # com = request.GET['comp']
-    com = request.POST.get('comp','Google')
-    # print(com)
-    return render(request, 'placements.html', {'place_det': place_det,'stu_details':stu_details,'com':com})
+    if request.method == 'POST':
+        comp=request.POST.get('comp')
+        stu_details = Studentdetails.objects.all()
+        return render(request, 'placements.html', {'place_det': place_det,'stu_details':stu_details,'comp':comp})
+    return render(request, 'placements.html',{'place_det': place_det})
     
 def contact(request):
     return render(request, 'contact.html')
