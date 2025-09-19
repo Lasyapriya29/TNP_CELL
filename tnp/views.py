@@ -15,12 +15,33 @@ def training(request):
     return render(request, 'training.html')
 
 def placements(request):
+    # Fetch all placement and student details
     place_det = Placements.objects.all()
     stu_details = Studentdetails.objects.all()
+
+    # Check if the request method is POST
     if request.method == 'POST':
-        comp=request.POST.get('comp')
-        return render(request, 'placements.html', {'place_det': place_det,'stu_details':stu_details,'comp':comp})
-    return render(request, 'placements.html',{'place_det': place_det,'stu_details':stu_details})
+        # Get the company name from the POST request
+        comp = request.POST.get('comp')
+
+        # If a company name is provided, filter placement details for that company
+        if comp:
+            filtered_place_det = place_det.filter(company_name__icontains=comp)  # Assuming 'company_name' is a field in Placements model
+        else:
+            filtered_place_det = place_det  # If no company name is provided, use all placement details
+
+        # Render the template with filtered data
+        return render(request, 'placements.html', {
+            'place_det': filtered_place_det,
+            'stu_details': stu_details,
+            'comp': comp
+        })
+
+    # Render the template with all data for GET requests
+    return render(request, 'placements.html', {
+        'place_det': place_det,
+        'stu_details': stu_details
+    })
     
 def contact(request):
     return render(request, 'contact.html')
@@ -68,3 +89,4 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
