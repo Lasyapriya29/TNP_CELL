@@ -1,4 +1,4 @@
-# Merged changes: Enhanced placements view with company filtering and improved code structure
+# Merged changes: Kept enhanced placements view with company filtering from both versions (no actual conflicts)
 
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
