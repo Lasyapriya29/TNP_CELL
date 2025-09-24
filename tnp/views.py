@@ -1,4 +1,4 @@
-# Merged changes to the `placements` view to include filtering of placement details by company name when provided in POST requests.
+# Merged changes to the `placements` view to include filtering of placement details by company name when provided in a POST request.
 
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
